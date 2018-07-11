@@ -1,0 +1,34 @@
+Essentially my idea was start out by getting a descriptor for stream socket for IPv4 and then to start listening on the newly created socket. This socket would be on the client side and connect to localhost. 
+
+Then I go into the first line returned by the browser "GET http://youtube.com/ HTTP/1.1"
+	- split this up into its components<br>
+
+		1) GET
+
+		2) Full address
+			- break off the http:// piece
+			- port if it exists, if it does adjust the port number that is default set to 80 for http
+			- break off path '/' if it exists	
+
+		3) Http component
+
+Then I just grab the next 7 lines return by the web browser to display to the user just for documentation purposes. 
+
+Then just connect with 
+	serverfd = Open_clientfd(urlBuffer, portNumber);
+		- connects to url at the specified port number
+
+Then based on whether a path exists create a client request for communication by the following
+
+	if(isPath == 0)
+	{
+		//Make the HTTP request
+		sprintf(clientRequest, "GET /%s HTTP/1.1\r\nHost: %s\r\n\r\n", pathBuffer, urlBuffer);		
+	}
+	else
+	{
+		//Make the HTTP request
+		sprintf(clientRequest, "GET / HTTP/1.1\r\nHost: %s\r\n\r\n", urlBuffer);	
+	}
+
+And then use the Rio_readlineb function to read in information from the site and update the log file if needed.
