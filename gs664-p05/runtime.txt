@@ -1,0 +1,112 @@
+RUNTIMES
+----------------------------------------------------
+Making systems calls make the program runs over a larger execution time as compared to standard I/O calls.
+
+Contents of folder
+----------------------
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ls -lh
+total 52K
+-rw-r--r-- 1 gunbir gunbir    9 Feb 19 18:05 bar
+-rw-r--r-- 1 gunbir gunbir 2.6K Feb 19 17:14 fileManager.c
+-rw-r--r-- 1 gunbir gunbir 1.1K Feb 19 17:14 fileManager.h
+-rw-r--r-- 1 gunbir gunbir  907 Feb 19 17:41 makefile
+-rwxr-xr-x 1 gunbir gunbir  19K Feb 19 18:09 p05
+-rw-r--r-- 1 gunbir gunbir 3.7K Feb 19 18:04 p05.c
+-rw-r--r-- 1 gunbir gunbir 1.2K Feb 19 17:14 README.md
+-rw-r--r-- 1 gunbir gunbir 4.0K Feb 19 18:09 runtime.txt
+drwxr-xr-x 2 gunbir gunbir 4.0K Feb 19 18:08 Test Files
+
+
+
+To Generate new test files for yourself:
+------------------------------------------------
+Go to ~/Documents/gs664-p05/Test Files$ 
+make
+./Output
+A file of a specified size will be generated. Have to hard code value.
+Creates a file consisting of a repition of the string "abcdefgh".
+
+
+Test Script Output
+--------------------------------------
+~/Documents/gs664-p05$ sh test.sh gs664-p05.tar.gz
+gcc -Wall -std=c99 -pedantic -g -Werror -c p05.c -o p05.o
+gcc -Wall -std=c99 -pedantic -g -Werror -c fileManager.c -o fileManager.o
+ar rc ./libtoken.a ./p05.o ./fileManager.o
+gcc -Wall -std=c99 -pedantic -g -Werror ./libtoken.a -o p05
+make clean
+make[1]: Entering directory '/home/gunbir/Documents/gs664-p05'
+rm -f *.o *~
+rm -f ./libtoken.a
+make[1]: Leaving directory '/home/gunbir/Documents/gs664-p05'
+PASS build
+PASS Test 1
+PASS Test 2
+PASS Test 3
+
+
+
+Sakai Sample Output
+--------------------------------------
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ./p05 -s bar bc
+1
+Execution time: 0.000216s
+
+10MB file
+---------------------------
+* Standard I/O Output
+
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ./p05 "/home/gunbir/Documents/gs664-p05/Test Files/10MB" ab
+10485760
+Execution time: 1.292758s
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ./p05 "/home/gunbir/Documents/gs664-p05/Test Files/10MB" ab cd
+10485760
+10485760
+Execution time: 2.251694s
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ./p05 "/home/gunbir/Documents/gs664-p05/Test Files/10MB" ab bc
+10485760
+10485760
+Execution time: 2.259691s
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ./p05 "/home/gunbir/Documents/gs664-p05/Test Files/10MB" ab bc cd
+10485760
+10485760
+10485760
+Execution time: 3.231232s
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ./p05 "/home/gunbir/Documents/gs664-p05/Test Files/10MB" ab bc cd fg
+10485760
+10485760
+10485760
+10485760
+Execution time: 4.264763s
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ 
+
+
+
+
+* System Call Output
+
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ./p05 -s "/home/gunbir/Documents/gs664-p05/Test Files/10MB" ab
+10485760
+Execution time: 34.512446s
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ./p05 -s "/home/gunbir/Documents/gs664-p05/Test Files/10MB" ab bc
+10485760
+10485760
+Execution time: 35.401661s
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ./p05 -s "/home/gunbir/Documents/gs664-p05/Test Files/10MB" ab cd
+10485760
+10485760
+Execution time: 35.108195s
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ./p05 -s "/home/gunbir/Documents/gs664-p05/Test Files/10MB" ab bc cd
+10485760
+10485760
+10485760
+Execution time: 35.950640s
+gunbir@gunbir-GL552VW:~/Documents/gs664-p05$ ./p05 -s "/home/gunbir/Documents/gs664-p05/Test Files/10MB" ab bc cd fg
+10485760
+10485760
+10485760
+10485760
+Execution time: 37.146954s
+
+
+
